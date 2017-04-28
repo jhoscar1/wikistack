@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e html,js,css ./app.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,17 @@
   "bugs": {
     "url": "https://github.com/jhoscar1/wikistack/issues"
   },
-  "homepage": "https://github.com/jhoscar1/wikistack#readme"
+  "homepage": "https://github.com/jhoscar1/wikistack#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "nunjucks": "^3.0.0",
+    "pg": "^6.1.5",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
