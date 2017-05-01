@@ -18,6 +18,7 @@ router.post('/', function(req, res, next) {
         var page = Page.build({
             title: req.body.title,
             content: req.body.content,
+            tags: req.body.tags.split(" ")
         });
         return page.save().then(function(page) {
             return page.setAuthor(user);
@@ -44,9 +45,10 @@ router.get('/:urlTitle', function(req, res, next) {
             res.sendStatus(404);
         }
         else {
+            var tags = page.tags.join(" ");
             page.getAuthor()
                 .then(user => {
-                res.render('wikipage', {page: page, user: user})
+                res.render('wikipage', {page, user, tags})
             })
         }
     })
