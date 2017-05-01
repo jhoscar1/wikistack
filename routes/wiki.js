@@ -39,7 +39,17 @@ router.get('/:urlTitle', function(req, res, next) {
             urlTitle: req.params.urlTitle
         }
     })
-    .then(data => res.render('wikipage', {page: data}))
+    .then(page => {
+        if (page === null) {
+            res.sendStatus(404);
+        }
+        else {
+            page.getAuthor()
+                .then(user => {
+                res.render('wikipage', {page: page, user: user})
+            })
+        }
+    })
     .catch(next);
 })
 
