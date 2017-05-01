@@ -3,15 +3,15 @@ const db = require('../models')
 const router = express.Router();
 
 router.get('/', function(req, res) {
-    res.send('<h1>Wiki</h1>');
-})
+    res.redirect('/');
+});
 
 router.post('/', function(req, res) {
-    res.send('<h1>Wiki</h1>');
-})
+    res.json(req.body);
+});
 
 router.get('/add', function(req, res) {
-    res.send('<h1>Wiki</h1>');
-})
+    res.render('addpage');
+});
 
 module.exports = router;

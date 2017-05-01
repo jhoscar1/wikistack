@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const models = require('./models');
 
-nunjucks.configure('./wikiViews', { noCache: true });
+nunjucks.configure('./views', { noCache: true });
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
 
