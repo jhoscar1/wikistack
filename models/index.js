@@ -11,28 +11,43 @@ const User = db.define('user', {
    email: {
        type: Sequelize.STRING,
        allowNull: false,
-       isEmail: true
+       validate: {
+            isEmail: true
+       }
    }});
 
 const Page = db.define('page', {
-   title: {
-       type: Sequelize.STRING,
-       allowNull: false
-   },
-   urlTitle: {
-       type: Sequelize.STRING,
-       allowNull: false
-   },
-   content: {
-       type: Sequelize.TEXT
-       allowNull: false
-   },
-   status: {
-       type: Sequelize.ENUM('open', 'closed')
-   }
+    title: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    urlTitle: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    date: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
+    },
+    content: {
+        type: Sequelize.TEXT,
+        allowNull: false
+    },
+    status: {
+        type: Sequelize.ENUM('open', 'closed')
+    },
+    route: {
+        type: Sequelize.VIRTUAL,
+        getterMethods: {
+            route: function() {
+                return '/wiki/' + this.urlTitle;
+            }
+        }
+    }
 });
 
 module.exports = {
     User,
-    Page
+    Page,
+    db
 }
