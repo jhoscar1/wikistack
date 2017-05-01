@@ -17,34 +17,43 @@ const User = db.define('user', {
    }});
 
 const Page = db.define('page', {
-    title: {
-        type: Sequelize.STRING,
-        allowNull: false
+        title: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        urlTitle: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        date: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        },
+        content: {
+            type: Sequelize.TEXT,
+            allowNull: false
+        },
+        status: {
+            type: Sequelize.ENUM('open', 'closed')
+        },
+        route: {
+            type: Sequelize.VIRTUAL,
+            getterMethods: {
+                route: function() {
+                    return '/wiki/' + this.urlTitle;
+                }
+            }
+        }
     },
-    urlTitle: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    date: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-    },
-    content: {
-        type: Sequelize.TEXT,
-        allowNull: false
-    },
-    status: {
-        type: Sequelize.ENUM('open', 'closed')
-    },
-    route: {
-        type: Sequelize.VIRTUAL,
-        getterMethods: {
-            route: function() {
-                return '/wiki/' + this.urlTitle;
+    {
+        hooks: {
+            beforeValidate: function(page) {
+                page.urlTitle = page.title.replace(/\s+/g, '_').replace(/(\d+|\W+)/g, '');
+                //page.urlTitle 
             }
         }
     }
-});
+);
 
 module.exports = {
     User,
