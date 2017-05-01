@@ -50,6 +50,18 @@ const Page = db.define('page', {
             beforeValidate: function(page) {
                 page.urlTitle = page.title.replace(/\s+/g, '_').replace(/(\d+|\W+)/g, '');
             }
+        },
+        classMethods: {
+            findByTag: function(tags) {
+                return Page.findAll({
+                    // $overlap matches a set of possibilities
+                    where : {
+                        tags: {
+                            $overlap: [tags]
+                        }
+                    }    
+                });
+            }
         }
     }
 );

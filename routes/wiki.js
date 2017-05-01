@@ -34,6 +34,14 @@ router.get('/add', function(req, res) {
     res.render('addpage');
 });
 
+router.get('/search', function(req, res, next) {
+    Page.findByTag(req.query.tags)
+    .then(pages => {
+        console.log(pages);
+        res.render('index', {pages});
+    })
+});
+
 router.get('/:urlTitle', function(req, res, next) {
     Page.findOne({
         where: {
@@ -45,7 +53,7 @@ router.get('/:urlTitle', function(req, res, next) {
             res.sendStatus(404);
         }
         else {
-            var tags = page.tags.join(" ");
+            var tags = page.tags;
             page.getAuthor()
                 .then(user => {
                 res.render('wikipage', {page, user, tags})
@@ -53,7 +61,7 @@ router.get('/:urlTitle', function(req, res, next) {
         }
     })
     .catch(next);
-})
+});
 
 
 module.exports = router;

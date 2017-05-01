@@ -17,9 +17,9 @@ app.use(morgan("dev"));
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-models.User.sync({force: true})
+models.User.sync({})
 .then(() => {
-    return models.Page.sync({force: true});
+    return models.Page.sync({});
 })
 .then(() => {
     app.listen(3000, function() {

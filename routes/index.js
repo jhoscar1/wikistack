@@ -10,6 +10,10 @@ router.get('/', function(req, res, next) {
     .catch(next);
 })
 
+router.get('/search', function(req, res, next) {
+    res.render('tags');
+});
+
 router.use('/users', userRoutes);
 
 router.use('/wiki', wikiRoutes);
