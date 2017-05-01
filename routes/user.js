@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models').User;
+const Page = require('../models').Page;
 
 module.exports = router;
 
@@ -12,12 +13,21 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/:id', function(req, res, next) {
-    User.findOne({
+    var userPromise = User.findOne({
         where: {
            id : req.params.id
         }
+    });
+    var pagePromise = Page.findAll({
+        where: {
+            authorId: req.params.id
+        }
+    });
+    Promise.all([userPromise, pagePromise])
+    .then(data => {
+        res.render('userpage', {user: data[0], pages: data[1]});
+
     })
-    .then(data => res.render('authors', {page: data}))
     .catch(next);
 })
 
