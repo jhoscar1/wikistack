@@ -8,13 +8,23 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res, next) {
-    var page = Page.build({
-        title: req.body.title,
-        content: req.body.content
-    });
-    page.save()
-    .then(function(data) {
-        res.redirect(data.route)
+    User.findOrCreate({
+        where: {
+            name: req.body.name,
+            email: req.body.email
+        }
+    }).then(data => {
+        var user = data[0];
+        var page = Page.build({
+            title: req.body.title,
+            content: req.body.content,
+        });
+        return page.save().then(function(page) {
+            return page.setAuthor(user);
+        });
+    })
+    .then(function(page) {
+        res.redirect(page.route)
     })
     .catch(next);
 });
