@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     .catch(next);
 })
 
-router.use('/user', userRoutes);
+router.use('/users', userRoutes);
 
 router.use('/wiki', wikiRoutes);
 

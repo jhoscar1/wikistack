@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h3>{{user.name}} <small></small></h3>
+  <h4>by {{user.email}}</a></h4>
+    {% for page in pages %}
+      <li><a href="{{page.route}}">{{page.title}}</a></li>
+    {% endfor %}
+{% endblock %}
