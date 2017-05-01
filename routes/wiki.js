@@ -7,30 +7,29 @@ router.get('/', function(req, res) {
     res.redirect('/');
 });
 
-router.post('/', function(req, res) {
-    //res.json(req.body);
+router.post('/', function(req, res, next) {
     var page = Page.build({
         title: req.body.title,
         content: req.body.content
     });
     page.save()
     .then(function(data) {
-        res.json(data);
+        res.redirect(data.route)
     })
-    .catch(console.error);
+    .catch(next);
 });
 
 router.get('/add', function(req, res) {
     res.render('addpage');
 });
 
-router.get('/:urlTitle', function(req, res) {
+router.get('/:urlTitle', function(req, res, next) {
     Page.findOne({
         where: {
             urlTitle: req.params.urlTitle
         }
     })
-    .then(data => res.json(data))
+    .then(data => res.render('wikipage', {page: data}))
     .catch(next);
 })
 

@@ -36,20 +36,16 @@ const Page = db.define('page', {
         status: {
             type: Sequelize.ENUM('open', 'closed')
         },
-        route: {
-            type: Sequelize.VIRTUAL,
-            getterMethods: {
-                route: function() {
-                    return '/wiki/' + this.urlTitle;
-                }
-            }
-        }
     },
     {
+        getterMethods: {
+            route: function() {
+                return '/wiki/' + this.urlTitle;
+            }
+        },
         hooks: {
             beforeValidate: function(page) {
                 page.urlTitle = page.title.replace(/\s+/g, '_').replace(/(\d+|\W+)/g, '');
-                //page.urlTitle 
             }
         }
     }
