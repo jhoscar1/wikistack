@@ -54,9 +54,10 @@ router.get('/:urlTitle', function(req, res, next) {
         }
         else {
             var tags = page.tags;
+            var tagSimilar = page.tags.join(' ');
             page.getAuthor()
                 .then(user => {
-                res.render('wikipage', {page, user, tags})
+                res.render('wikipage', {page, user, tags, tagSimilar})
             })
         }
     })

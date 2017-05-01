@@ -52,12 +52,13 @@ const Page = db.define('page', {
             }
         },
         classMethods: {
-            findByTag: function(tags) {
+            findByTag: function(tagInput) {
+                var tags = tagInput.split(" ")
                 return Page.findAll({
                     // $overlap matches a set of possibilities
                     where : {
                         tags: {
-                            $overlap: [tags]
+                            $overlap: tags
                         }
                     }    
                 });

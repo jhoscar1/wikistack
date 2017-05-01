@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <h3>{{page.title}} <small> (<a href=Page.urlTitle>Similar</a>)</small></h3>
+  <h3>{{page.title}} <small> (<a href="/wiki/search?tags={{tagSimilar}}">Similar</a>)</small></h3>
   <h4>by <a href="/users/{{user.id}}">{{user.name}}</a></h4>
   <div>
     <ul class="list-unstyled">
